@@ -28,15 +28,11 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route exact path="/">
-            <Redirect to="/nursery-list" />
-          </Route>
+          <Route exact path="/" component={NurseryList} />
           <Route path="/add-new-plant">
             <AddNewPlant />
           </Route>
-          <Route path="/nursery-list">
-            <NurseryList />
-          </Route>
+          <Route path="/nursery-list" component={NurseryList} />
           <Route
             path="/nursery-details/:nurseryId"
             render={(props) => (
