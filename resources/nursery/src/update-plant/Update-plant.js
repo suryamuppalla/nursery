@@ -1,9 +1,8 @@
 import React from "react";
-
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import "./Add-new-plant.css";
+import "./Update-plant.css";
 import {ApiUrl} from "../Constant";
 
 async function UploadImageFile(formData) {
@@ -18,9 +17,9 @@ async function UploadImageFile(formData) {
     });
 }
 
-async function AddNewItem(plant) {
-    return fetch(`${ApiUrl}/plants`, {
-        method: "POST",
+async function UpdateItem(plant) {
+    return fetch(`${ApiUrl}/plants/${plant.id}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
@@ -38,7 +37,7 @@ async function AddNewItem(plant) {
         });
 }
 
-class AddNewPlant extends React.Component {
+class UpdatePlant extends React.Component {
     constructor(props) {
         super(props);
         // ['title', 'description', 'price', 'about', 'rating', 'img', 'special_feature']
@@ -53,33 +52,70 @@ class AddNewPlant extends React.Component {
         };
         this.onFileChange = this.onFileChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.getData();
     }
 
-    onFileChange(e) {
-        console.log(e);
-        console.log(typeof e.target.files[0]);
-        this.setState({img: e.target.files[0]});
+    async delete() {
+        const _url = `${ApiUrl}/plants/` + this.props.id;
+        const _data = await fetch(_url, {method: 'DELETE'});
+        toast.success('Plant has been deleted successfully', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        this.props.history.push('/nursery-list');
+        console.log(_data);
+    }
+
+    async onFileChange(e) {
+        let formData = new FormData();
+        formData.append('file', e.target.files[0]);
+        const imgUrl = await UploadImageFile(formData);
+        this.setState({img: imgUrl});
     }
 
     async handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
+        await UpdateItem(this.state);
+        toast.success('Plant has been updated successfully', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        this.props.history.push('/nursery-details/' + this.state.id);
+    }
 
-        if (typeof this.state.img === 'object') {
-            let formData = new FormData();
-            formData.append('file', this.state.img);
-            const imgUrl = await UploadImageFile(formData);
-            this.setState({img: imgUrl});
-            const data = await AddNewItem(this.state);
-            toast.success('New Plant Added Successfully');
-            this.props.history.push('/nursery-list');
-            console.log(data);
-        } else {
-            console.error('Please upload img file');
-        }
+    async getData(searchText) {
+        let __url = `${ApiUrl}/plants/` + this.props.id;
+        fetch(__url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((json) => {
+                if (json && json.length) {
+                    this.setState(json[0]);
+                    return json[0];
+                }
+            }).catch((error) => {
+            console.log("error", error);
+        });
     }
 
     render() {
@@ -89,7 +125,7 @@ class AddNewPlant extends React.Component {
                     <div className="col-lg-6 offset-lg-3">
                         <div className="card">
                             <div className="card-body">
-                                <h3 className="text-primary">Add New Plant Details</h3>
+                                <h3 className="text-primary">Update Plant Details</h3>
                                 <div className="d-block mt-3">
                                     <form onSubmit={this.handleSubmit}>
                                         <div className="form-group">
@@ -167,6 +203,11 @@ class AddNewPlant extends React.Component {
                                                 placeholder="Image"
                                                 id="img" className="form-control"
                                             />
+
+                                            <div className="mt-3">
+                                                <img src={ApiUrl + '/' + this.state.img} alt="" width="150"
+                                                     height="150"/>
+                                            </div>
                                         </div>
 
                                         <div className="form-group">
@@ -181,9 +222,13 @@ class AddNewPlant extends React.Component {
                                             />
                                         </div>
 
-                                        <div className="form-group">
-                                            <button type="submit" className="btn btn-primary">
+                                        <div className="d-flex justify-content-center align-content-center">
+                                            <button type="submit" className="btn btn-primary mr-3">
                                                 Submit
+                                            </button>
+
+                                            <button onClick={this.delete} type="button"
+                                                    className="btn btn-danger">Delete
                                             </button>
                                         </div>
                                     </form>
@@ -197,4 +242,4 @@ class AddNewPlant extends React.Component {
     }
 }
 
-export default AddNewPlant;
+export default UpdatePlant;

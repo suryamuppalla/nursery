@@ -52,10 +52,48 @@ class PlantsController extends Controller
     public function updatePlant(Request $request, $id)
     {
         // logic to update a Plant record goes here
+        // logic to get a Plant record goes here
+        if (Plant::where('id', $id)->exists()) {
+            Plant::where('id', $id)->first()->update($request->all());
+            return response()->json([
+                "message" => "Plant Details Updated Successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Plant not found"
+            ], 404);
+        }
     }
 
     public function deletePlant($id)
     {
         // logic to delete a Plant record goes here
+        if (Plant::where('id', $id)->exists()) {
+            Plant::where('id', $id)->first()->delete();
+            return response()->json([
+                "message" => "Plant Details Deleted Successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Plant not found"
+            ], 404);
+        }
+
+    }
+
+    public function uploadPlantImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+
+            $file->move($destinationPath, $file_name);
+
+            return response()->json([
+                'data' => 'images/' . $file_name
+            ]);
+        }
     }
 }
