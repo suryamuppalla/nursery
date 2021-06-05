@@ -65,7 +65,6 @@ class AddNewPlant extends React.Component {
     }
 
     async handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
 
         if (typeof this.state.img === 'object') {
@@ -77,8 +76,6 @@ class AddNewPlant extends React.Component {
             toast.success('New Plant Added Successfully');
             this.props.history.push('/nursery-list');
             console.log(data);
-        } else {
-            console.error('Please upload img file');
         }
     }
 
@@ -91,10 +88,10 @@ class AddNewPlant extends React.Component {
                             <div className="card-body">
                                 <h3 className="text-primary">Add New Plant Details</h3>
                                 <div className="d-block mt-3">
-                                    <form onSubmit={this.handleSubmit}>
+                                    <form onSubmit={this.handleSubmit} data-testid="form">
                                         <div className="form-group">
-                                            <label htmlFor="nursery-title">Title</label>
-                                            <input
+                                            <label data-testid="title-label" htmlFor="nursery-title">Title</label>
+                                            <input data-testid="input-title" id="nursery-title"
                                                 value={this.state.title}
                                                 onChange={(e) =>
                                                     this.setState({title: e.target.value})
@@ -103,11 +100,12 @@ class AddNewPlant extends React.Component {
                                                 placeholder="Title"
                                                 className="form-control"
                                             />
+                                            <span className="d-none">Title is required</span>
                                         </div>
 
                                         <div className="form-group">
                                             <label htmlFor="description">Description</label>
-                                            <textarea
+                                            <textarea data-testid="input-description"
                                                 name="description"
                                                 id="description"
                                                 value={this.state.description}
@@ -117,10 +115,11 @@ class AddNewPlant extends React.Component {
                                                 className="form-control"
                                                 placeholder="Description"
                                             />
+                                            <span className="d-none">Description is required</span>
                                         </div>
 
                                         <div className="form-group">
-                                            <label htmlFor="price">Price</label>
+                                            <label htmlFor="Price">Price</label>
                                             <input
                                                 type="number"
                                                 value={this.state.price}
@@ -134,13 +133,14 @@ class AddNewPlant extends React.Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <label>About</label>
+                                            <label htmlFor="about">About</label>
                                             <textarea
                                                 className="form-control"
                                                 value={this.state.about}
                                                 onChange={(e) =>
                                                     this.setState({about: e.target.value})
                                                 }
+                                                id="about"
                                                 placeholder="About"
                                             />
                                         </div>
@@ -170,13 +170,14 @@ class AddNewPlant extends React.Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <label>Special Features</label>
+                                            <label htmlFor="special">Special Features</label>
                                             <textarea
                                                 className="form-control"
                                                 value={this.state.special_feature}
                                                 onChange={(e) =>
                                                     this.setState({special_feature: e.target.value})
                                                 }
+                                                id="special"
                                                 placeholder="Special Features"
                                             />
                                         </div>
