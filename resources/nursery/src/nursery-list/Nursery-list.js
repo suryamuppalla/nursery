@@ -64,7 +64,7 @@ class NurseryList extends React.Component {
                                                      height="200" alt="Plant logo"/>
                                                 <div className="media-body">
                                                     <Link className="plant-title"
-                                                          to={"nursery-details/" + plant.id}>
+                                                          to={"./nursery-details/" + plant.id}>
                                                         {plant.title}
                                                     </Link>
                                                     <p className="">{plant.description}</p>
@@ -84,7 +84,7 @@ class NurseryList extends React.Component {
                                 <p className="mb-3 text-danger font-weight-bold">
                                     No Plants found in your database, please add few more plants to see
                                 </p>
-                                <Link to="/add-new-plant" className="btn btn-primary">
+                                <Link to="./add-new-plant" className="btn btn-primary">
                                     Add New Plant
                                 </Link>
                             </div>

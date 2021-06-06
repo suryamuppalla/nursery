@@ -28,11 +28,11 @@ function App() {
                 pauseOnHover
             />
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">
+                <Link className="navbar-brand" to="./">
                     Nursery
                 </Link>
                 <span className="flex-grow-1 invisible">dkdk</span>
-                <Link to="/add-new-plant" className="btn btn-primary">
+                <Link to="./add-new-plant" className="btn btn-primary">
                     Add New Plant
                 </Link>
             </nav>
