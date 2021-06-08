@@ -127,23 +127,24 @@ class UpdatePlant extends React.Component {
                             <div className="card-body">
                                 <h3 className="text-primary">Update Plant Details</h3>
                                 <div className="d-block mt-3">
-                                    <form onSubmit={this.handleSubmit}>
+                                    <form data-testid="form" onSubmit={this.handleSubmit}>
                                         <div className="form-group">
                                             <label htmlFor="nursery-title">Title</label>
-                                            <input
+                                            <input data-testid="input-title"
                                                 value={this.state.title}
                                                 onChange={(e) =>
                                                     this.setState({title: e.target.value})
                                                 }
-                                                type="text"
+                                                type="text" id="nursery-title"
                                                 placeholder="Title"
                                                 className="form-control"
                                             />
+                                            <span className="d-none">Title is required</span>
                                         </div>
 
                                         <div className="form-group">
                                             <label htmlFor="description">Description</label>
-                                            <textarea
+                                            <textarea data-testid="input-description"
                                                 name="description"
                                                 id="description"
                                                 value={this.state.description}
@@ -153,6 +154,7 @@ class UpdatePlant extends React.Component {
                                                 className="form-control"
                                                 placeholder="Description"
                                             />
+                                            <span className="d-none">Description is required</span>
                                         </div>
 
                                         <div className="form-group">
@@ -164,14 +166,14 @@ class UpdatePlant extends React.Component {
                                                     this.setState({price: e.target.value})
                                                 }
                                                 placeholder="Price"
-                                                id="Price"
+                                                id="price"
                                                 className="form-control"
                                             />
                                         </div>
 
                                         <div className="form-group">
-                                            <label>About</label>
-                                            <textarea
+                                            <label htmlFor="about">About</label>
+                                            <textarea id="about"
                                                 className="form-control"
                                                 value={this.state.about}
                                                 onChange={(e) =>
@@ -211,8 +213,8 @@ class UpdatePlant extends React.Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <label>Special Features</label>
-                                            <textarea
+                                            <label htmlFor="special-features">Special Features</label>
+                                            <textarea id="special-features"
                                                 className="form-control"
                                                 value={this.state.special_feature}
                                                 onChange={(e) =>

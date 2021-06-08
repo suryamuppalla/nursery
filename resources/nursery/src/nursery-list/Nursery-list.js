@@ -38,11 +38,12 @@ class NurseryList extends React.Component {
 
     render() {
         return (
-            <div className="d-block">
+            <div className="d-block" data-testid="main">
                 <div className="row">
                     <div className="col-lg-4">
+                        <h2>Nursery Items</h2>
                         <div className="form-group">
-                            <input
+                            <input data-testid="search"
                                 onChange={(e) => this.getData(e.target.value)}
                                 type="text"
                                 className="form-control"

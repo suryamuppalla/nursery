@@ -1,10 +1,9 @@
 import "./App.css";
 
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-    Link,
+    Link, BrowserRouter,
 } from "react-router-dom";
 import AddNewPlant from "./add-new-plant/Add-new-plant";
 import NurseryList from "./nursery-list/Nursery-list";
@@ -15,7 +14,7 @@ import React from "react";
 
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -62,7 +61,7 @@ function App() {
                     />
                 </Switch>
             </div>
-        </Router>
+        </BrowserRouter>
     );
 }
 
