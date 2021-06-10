@@ -18,8 +18,8 @@ async function UploadImageFile(formData) {
 }
 
 async function UpdateItem(plant) {
-    return fetch(`${ApiUrl}/plants/${plant.id}`, {
-        method: "PUT",
+    return fetch(`${ApiUrl}/plants/update/${plant.id}`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
@@ -60,8 +60,8 @@ class UpdatePlant extends React.Component {
     }
 
     async delete() {
-        const _url = `${ApiUrl}/plants/` + this.props.id;
-        const _data = await fetch(_url, {method: 'DELETE'});
+        const _url = `${ApiUrl}/plants/delete/` + this.props.id;
+        const _data = await fetch(_url, {method: 'POST'});
         toast.success('Plant has been deleted successfully', {
             position: "top-right",
             autoClose: 5000,

@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::get('plants', 'PlantsController@getAllPlants');
 Route::get('plants/{id}', 'PlantsController@getPlant');
 Route::post('plants', 'PlantsController@createPlant');
-Route::put('plants/{id}', 'PlantsController@updatePlant');
-Route::delete('plants/{id}', 'PlantsController@deletePlant');
+Route::post('plants/update/{id}', 'PlantsController@updatePlant');
+Route::post('plants/delete/{id}', 'PlantsController@deletePlant');
 
 Route::post('plants/upload', 'PlantsController@uploadPlantImage');

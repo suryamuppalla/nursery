@@ -3,7 +3,7 @@ import "./App.css";
 import {
     Switch,
     Route,
-    Link, BrowserRouter,
+    Link, HashRouter,
 } from "react-router-dom";
 import AddNewPlant from "./add-new-plant/Add-new-plant";
 import NurseryList from "./nursery-list/Nursery-list";
@@ -14,7 +14,7 @@ import React from "react";
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -27,7 +27,7 @@ function App() {
                 pauseOnHover
             />
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="./">
+                <Link className="navbar-brand" to="/">
                     Nursery
                 </Link>
                 <span className="flex-grow-1 invisible">dkdk</span>
@@ -61,7 +61,7 @@ function App() {
                     />
                 </Switch>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
